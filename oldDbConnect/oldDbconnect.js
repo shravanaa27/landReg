@@ -6,6 +6,15 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   if (err) throw err;
   console.log("Connected successfully to MongoDB in the cloud");
-  const db = client.db("test");
-  client.close();
+  
+  const db = client.db("landRegistry");
+  const collection = db.collection("landdetails");
+  collection.find({}).toArray((err, docs) => {
+    if (err) throw err;
+    console.log("Data retrieved from MongoDB:");
+    console.log(docs);
+    client.close();
+  });
+  
 });
+
